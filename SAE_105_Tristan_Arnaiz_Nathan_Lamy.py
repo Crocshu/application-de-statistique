@@ -11,7 +11,8 @@ def crea_df(fich,echan:int,separ) -> dict:
     l_l=[w.split(separ) for w in lire.split("\n")] #Transformation de la lecture du fichier csv (str) en liste de liste en prenant une partie du fichier suivant ce qui est demandé
     if echan>len(l_l) : echan=len(l_l)
     l_l=l_l[:echan]
-    l_l=[x for x in l_l if (len(x)==len(l_l[0]) and sum([1 for z in x if z=='" "']) == 0)] #Création d'une nouvelle liste sans erreurs len(x)==len(l_l[0]) and 
+    l_l=[[y.replace('"','') for y in x] for x in l_l] #Permet de supprimer les côtes dédoublées
+    l_l=[x for x in l_l if (len(x)==len(l_l[0]) and sum([1 for z in x if z==' ']) == 0)] #Création d'une nouvelle liste sans erreurs len(x)==len(l_l[0]) and 
     t_e=(1-round((len(l_l)/echan),3))*100 #Calcul du taux d'erreur
     print(t_e,echan,len(l_l))
     ini_dico={i:[] for i in l_l[0]} #Initialisation du dictionnaire     for x in l_l: print(l_l) for y in x: y=y.replace("\r","")
@@ -34,7 +35,13 @@ ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000,
 
 def crea_dfv2(fich,echan:int,separ) -> pd.DataFrame:
     lire = pd.read_csv(fich,sep=separ,encoding='latin1',chunksize=10000,nrows=echan) #chunksize permet de diviser le fichier en plusieurs morceaux et nrows permet de prendre un nombre de lignes définies
-    return pd.concat(lire) #Concat permet de rassembler les différents chunks du fichiers, chunks fait pour ne pas surchargé la mémoire lors de l'ouverture du fichier.
+    fichier = pd.concat(lire) #Concat permet de rassembler les différents chunks du fichiers, chunks fait pour ne pas surchargé la mémoire lors de l'ouverture du fichier.
+    l, L = fichier.shape
+    for i in fichier.head(0):
+        fichierf = fichier[fichier[i] != " "]
+    t_e=round((l/echan),3)*100 #Calcul du taux d'erreur
+    print((" Il y a "+str(t_e)+" % d'erreur ").center(102,"#")+"\n")
+    return fichierf
 
 def ouvrir_fichierv2(nzip:str,nfile:str,echantillon:int,separator:str)-> pd.DataFrame:
     loc=os.getcwd()
