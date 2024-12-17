@@ -6,14 +6,14 @@ import zipfile
 
 def crea_df(fich,echan:int,separ) -> dict:
     lire = fich.read()
-    if echan>len(lire) : echan=len(lire)
     if type(lire) == type(b'hduiaoh') : lire=lire.decode("latin1") # Le .decode permet de passer le type de crea_df de bytes à str car la librarie Zipfile travaille sur les données binaires
     lire=lire.replace("\r","")
-    l_l=[w.split(separ) for w in lire.split("\n")][:echan] #Transformation de la lecture du fichier csv (str) en liste de liste en prenant une partie du fichier suivant ce qui est demandé
-    long1=len(l_l)
-    l_l=[x for x in l_l if (len(x)==len(l_l[0]) and sum(len(x)==len(l_l[0]) and [1 for z in x if z=='" "']) == 0)] #Création d'une nouvelle liste sans erreurs len(x)==len(l_l[0]) and 
-    t_e=(1-round((len(l_l)/long1),10))*100 #Calcul du taux d'erreur
-    print(t_e,long1,len(l_l))
+    l_l=[w.split(separ) for w in lire.split("\n")] #Transformation de la lecture du fichier csv (str) en liste de liste en prenant une partie du fichier suivant ce qui est demandé
+    if echan>len(l_l) : echan=len(l_l)
+    l_l=l_l[:echan]
+    l_l=[x for x in l_l if (len(x)==len(l_l[0]) and sum([1 for z in x if z=='" "']) == 0)] #Création d'une nouvelle liste sans erreurs len(x)==len(l_l[0]) and 
+    t_e=(1-round((len(l_l)/echan),3))*100 #Calcul du taux d'erreur
+    print(t_e,echan,len(l_l))
     ini_dico={i:[] for i in l_l[0]} #Initialisation du dictionnaire     for x in l_l: print(l_l) for y in x: y=y.replace("\r","")
     {ini_dico[list(ini_dico.keys())[j.index(k)]].append(k) for j in l_l[1:] for k in j} #Remplissage du dictionnaire en faisant correspondre chaque élément à sa colonne grâce à la liste de liste
     return ini_dico #[list(ini_dico.keys())[2]]
@@ -21,7 +21,7 @@ def crea_df(fich,echan:int,separ) -> dict:
 def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str) -> dict:
     loc=os.getcwd()
     if nzip != None :
-        zip=os.path.join(loc,nzip)
+        zip=os.path.join(loc,nzip) # Joindre les chemins pour faire un script multiOS
         with zipfile.ZipFile(zip) as myzip:
             with myzip.open(nfile) as file:
                 return crea_df(fich=file,echan=echantillon,separ=separator)
