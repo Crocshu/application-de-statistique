@@ -7,18 +7,16 @@ import zipfile
 def crea_df(fich,echan:int,separ) -> dict:
     lire = fich.read()
     if echan>len(lire) : echan=len(lire)
-    #lire=lire[:echan]
     if type(lire) == type(b'hduiaoh') : lire=lire.decode("latin1") # Le .decode permet de passer le type de crea_df de bytes à str car la librarie Zipfile travaille sur les données binaires
     lire=lire.replace("\r","")
-    l_l=[w.split(separ) for w in lire.split("\n")][:echan] #Transformation de la lecture du fichier csv (str) en liste de liste
+    l_l=[w.split(separ) for w in lire.split("\n")][:echan] #Transformation de la lecture du fichier csv (str) en liste de liste en prenant une partie du fichier suivant ce qui est demandé
     long1=len(l_l)
-    l_l=[x for x in l_l if (sum([1 for z in x if z==" "]) == 0)]
-    t_e=(1-round((len(l_l)/long1),10))*100
-    print(t_e)
+    l_l=[x for x in l_l if (len(x)==len(l_l[0]) and sum(len(x)==len(l_l[0]) and [1 for z in x if z=='" "']) == 0)] #Création d'une nouvelle liste sans erreurs len(x)==len(l_l[0]) and 
+    t_e=(1-round((len(l_l)/long1),10))*100 #Calcul du taux d'erreur
+    print(t_e,long1,len(l_l))
     ini_dico={i:[] for i in l_l[0]} #Initialisation du dictionnaire     for x in l_l: print(l_l) for y in x: y=y.replace("\r","")
     {ini_dico[list(ini_dico.keys())[j.index(k)]].append(k) for j in l_l[1:] for k in j} #Remplissage du dictionnaire en faisant correspondre chaque élément à sa colonne grâce à la liste de liste
-    print(len(ini_dico[list(ini_dico.keys())[0]]))
-    return ini_dico
+    return ini_dico #[list(ini_dico.keys())[2]]
 
 def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str) -> dict:
     loc=os.getcwd()
@@ -31,7 +29,7 @@ def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str) -> dict:
         with open(nfile,"r",encoding="latin1") as file:
             return crea_df(fich=file,echan=echantillon,separ=separator)
 #print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";"))
-print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=700,separator=";"))
+ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000,separator=";")
 
 
 def crea_dfv2(fich,echan:int,separ) -> pd.DataFrame:
