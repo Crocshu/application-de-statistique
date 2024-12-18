@@ -19,32 +19,23 @@ def crea_df(fich,echan:int,separ) -> dict:
     {ini_dico[list(ini_dico.keys())[j.index(k)]].append(k) for j in l_l[1:] for k in j} #Remplissage du dictionnaire en faisant correspondre chaque élément à sa colonne grâce à la liste de liste
     return ini_dico #[list(ini_dico.keys())[2]]
 
-def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str) -> dict:
+def crea_dfv2(fich,echan:int,separ) -> pd.DataFrame:
+    lire = pd.read_csv(fich,sep=separ,encoding='latin1',chunksize=10000,nrows=echan) #chunksize permet de diviser le fichier en plusieurs morceaux et nrows permet de prendre un nombre de lignes définies
+    return pd.concat(lire) #Concat permet de rassembler les différents chunks du fichiers, chunks fait pour ne pas surchargé la mémoire lors de l'ouverture du fichier.
+
+def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool) -> dict:
+    func=crea_df
+    if pandas : func=crea_dfv2 
     loc=os.getcwd()
     if nzip != None :
         zip=os.path.join(loc,nzip) # Joindre les chemins pour faire un script multiOS
         with zipfile.ZipFile(zip) as myzip:
             with myzip.open(nfile) as file:
-                return crea_df(fich=file,echan=echantillon,separ=separator)
+                return func(fich=file,echan=echantillon,separ=separator)
     else:
         with open(nfile,"r",encoding="latin1") as file:
-            return crea_df(fich=file,echan=echantillon,separ=separator)
-#print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";"))
-print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10,separator=";"))
-
-
-def crea_dfv2(fich,echan:int,separ) -> pd.DataFrame:
-    lire = pd.read_csv(fich,sep=separ,encoding='latin1',chunksize=10000,nrows=echan) #chunksize permet de diviser le fichier en plusieurs morceaux et nrows permet de prendre un nombre de lignes définies
-    return pd.concat(lire) #Concat permet de rassembler les différents chunks du fichiers, chunks fait pour ne pas surchargé la mémoire lors de l'ouverture du fichier.
-
-def ouvrir_fichierv2(nzip:str,nfile:str,echantillon:int,separator:str)-> pd.DataFrame:
-    loc=os.getcwd()
-    if nzip != None :
-        zip=os.path.join(loc,nzip)  
-        with zipfile.ZipFile(zip) as myzip:
-            with myzip.open(nfile) as file:
-                return crea_dfv2(fich=file,echan=echantillon,separ=separator)
-    else:
-        return crea_dfv2(fich=nfile,echan=echantillon,separ=separator)
-#print(ouvrir_fichierv2(nzip=None,nfile="medocs_produits.csv",echantillon=10000,separator=";"))
-#print(ouvrir_fichierv2(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";"))
+            return func(fich=file,echan=echantillon,separ=separator)
+#print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000,separator=";",pandas=False))
+#print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000,separator=";",pandas=False))
+#print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000,separator=";",pandas=True))
+#print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000,separator=";",pandas=True))
