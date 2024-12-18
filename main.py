@@ -30,17 +30,18 @@ def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str) -> dict:
         with open(nfile,"r",encoding="latin1") as file:
             return crea_df(fich=file,echan=echantillon,separ=separator)
 #print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";"))
-ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000,separator=";")
+#ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000,separator=";")
 
 
 def crea_dfv2(fich,echan:int,separ) -> pd.DataFrame:
     lire = pd.read_csv(fich,sep=separ,encoding='latin1',chunksize=10000,nrows=echan) #chunksize permet de diviser le fichier en plusieurs morceaux et nrows permet de prendre un nombre de lignes définies
     fichier = pd.concat(lire) #Concat permet de rassembler les différents chunks du fichiers, chunks fait pour ne pas surchargé la mémoire lors de l'ouverture du fichier.
     l, L = fichier.shape
-    for i in fichier.head(0):
-        fichierf = fichier[fichier[i] != " "]
-    t_e=round((l/echan),3)*100 #Calcul du taux d'erreur
-    print((" Il y a "+str(t_e)+" % d'erreur ").center(102,"#")+"\n")
+    for i in fichier.columns:
+        fichierf = fichier[fichier["HEUREMVT"] != " "]
+    d, D = fichierf.shape
+    t_e=(round((l/d-1), 3))*100 #Calcul du taux d'erreur
+    print((" Il y a "+str(t_e)+" % d'erreur et il y a "+str((d-l)*-1)+" mauvaise lignes ").center(102,"#")+"\n")
     return fichierf
 
 def ouvrir_fichierv2(nzip:str,nfile:str,echantillon:int,separator:str)-> pd.DataFrame:
@@ -53,4 +54,4 @@ def ouvrir_fichierv2(nzip:str,nfile:str,echantillon:int,separator:str)-> pd.Data
     else:
         return crea_dfv2(fich=nfile,echan=echantillon,separ=separator)
 #print(ouvrir_fichierv2(nzip=None,nfile="medocs_produits.csv",echantillon=10000,separator=";"))
-#print(ouvrir_fichierv2(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";"))
+print(ouvrir_fichierv2(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";"))
