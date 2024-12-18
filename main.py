@@ -13,8 +13,9 @@ def crea_df(fich,echan:int,separ) -> dict:
     l_l=l_l[:echan]
     l_l=[[y.replace('"','') for y in x] for x in l_l] #Permet de supprimer les côtes dédoublées
     l_l=[x for x in l_l if (len(x)==len(l_l[0]) and sum([1 for z in x if z==' ']) == 0)] #Création d'une nouvelle liste sans erreurs len(x)==len(l_l[0]) and 
-    t_e=(1-round((len(l_l)/echan),3))*100 #Calcul du taux d'erreur
-    print(t_e,echan,len(l_l))
+    t_e=(round(1-(len(l_l)/echan),3))*100 #Calcul du taux d'erreur
+    print((f" Il y a {t_e} % d'erreur et il y a {echan-len(l_l)} mauvaise lignes ").center(102,"#")+"\n")
+    print(len(l_l))
     ini_dico={i:[] for i in l_l[0]} #Initialisation du dictionnaire 
     {ini_dico[list(ini_dico.keys())[j.index(k)]].append(k) for j in l_l[1:] for k in j} #Remplissage du dictionnaire en faisant correspondre chaque élément à sa colonne grâce à la liste de liste
     return ini_dico
@@ -43,7 +44,7 @@ def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool) -> dict
     else:
         with open(nfile,"r",encoding="latin1") as file:
             return func(fich=file,echan=echantillon,separ=separator)
-#print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000,separator=";",pandas=False))
-#print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000,separator=";",pandas=False))
-#print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000,separator=";",pandas=True))
-#print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000,separator=";",pandas=True))
+ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=";",pandas=False)
+ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
+print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True))
+print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True))
