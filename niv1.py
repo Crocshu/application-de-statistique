@@ -1,8 +1,7 @@
-from modifs_crea_df import ouvrir_fichier
+from main import ouvrir_fichier
 import matplotlib.pyplot as plt
 import datetime as dt
 def graph1(df:dict,axe_x:str,axe_y:str,title:str)->plt:
-    print(df)
     ax,ay=df[axe_x],df[axe_y] #Ancienne version : df[f'"{axe_x}"'],df[f'"{axe_y}"']
     mois=[[x] for x in range(1,13)]
     [mois[x-1].append(float(z.replace(",","."))) for y,z in zip(ax,ay) for x in range(1,13) if y[3:5]=="{:02}".format(x)]# Le replace est nécessaire, sinon la conversion en float est impossible car le séparateur d'un nombre réel pour python est le point et non la virgule
