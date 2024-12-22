@@ -32,7 +32,7 @@ def crea_dfv2(fich,echan:int,separ) -> pd.DataFrame:
     print((" Il y a "+str(t_e)+" % d'erreur et il y a "+str((l-d))+" mauvaise lignes ").center(102,"#")+"\n")
     return fichierf
 
-def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool) -> dict:
+def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool = False) -> dict:
     func=crea_df
     if pandas : func=crea_dfv2 
     loc=os.getcwd()
@@ -44,7 +44,7 @@ def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool) -> dict
     else:
         with open(nfile,"r",encoding="latin1") as file:
             return func(fich=file,echan=echantillon,separ=separator)
-ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=";",pandas=False)
-ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
-print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True))
-print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True))
+# ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=";",pandas=False)
+# ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
+# print(ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True))
+# print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True))
