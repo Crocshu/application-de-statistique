@@ -7,6 +7,7 @@ import pandas as pd
 #Numéro 2 du niveau 3
 def graph3(df:pd.DataFrame,axe_x:str,axe_y:str,cherche:str,title:str)->plt:
     data=df[[axe_x, axe_y]]
+    data[axe_y]=[str(y) for y in data[axe_y]]
     # Dataframe avec les services en index et leur nombre de mouvement en colonne trié en fonction du nombre de mouvement décroissant.
     mvt_par_serv = data.pivot_table(index=[axe_y],values=[axe_y], aggfunc='count').rename(columns={"DATEMVT": "NBMVT"}).sort_values(by='NBMVT',ascending=False)
     print(mvt_par_serv)
@@ -37,10 +38,10 @@ def graph3(df:pd.DataFrame,axe_x:str,axe_y:str,cherche:str,title:str)->plt:
             return datess.strftime("%b\n%Y")  # Afficher l'année et le mois
         else:
             return datess.strftime("%b")  # Afficher seulement le mois
-    ax=plt.gca()
+    ax=plt.gca() # gca=
     ax.set_xlim(val_b,val_h)
     ax.xaxis.set_major_locator(mdates.MonthLocator([1, 7]))
-    ax.xaxis.set_minor_formatter(FuncFormatter(custom_date_format))
+    ax.xaxis.set_major_formatter(FuncFormatter(custom_date_format))
     ax.xaxis.set_minor_locator(mdates.MonthLocator())
     plt.show()
 x=ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
