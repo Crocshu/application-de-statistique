@@ -1,8 +1,6 @@
 from main import ouvrir_fichier
 import matplotlib.dates as mdates
-from matplotlib.dates import DateFormatter
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 from matplotlib.ticker import FuncFormatter
 import pandas as pd
 #Numéro 2 du niveau 3
@@ -38,17 +36,15 @@ plt.title('Nombre de mouvements par mois pour les 4 principaux services') # Donn
 plt.legend(loc="upper left") # Positionne la légende en haut à gauche
 def custom_date_format(x,pos=None): #Formatage de la date sur l'axe des abscisses sachant que la valeur en abscisse donnée par matplotlib est en Epoch Unix
     datess = pd.to_datetime(x,unit='D', origin='unix')  # Convertir epoch Unix en datetime
-    # Condition : Si c'est le début de l'année (1er janvier)
-    if datess.month == 1:
-        return datess.strftime("%b\n%Y")  # Afficher l'année et le mois
-    else:
-        return datess.strftime("%b")  # Afficher seulement le mois
+    # Condition : Si le mois est Juillet
+    if datess.month == 7: return datess.strftime("%b")  # Afficher le mois en lettre 
+    return None  # Sinon, ne rien afficher
 ax=plt.gca()
 ax.set_xlim(val_b,val_h)
-ax.xaxis.set_major_locator(mdates.MonthLocator([1, 7]))
-ax.xaxis.set_minor_formatter(FuncFormatter(custom_date_format))
+ax.xaxis.set_major_locator(mdates.MonthLocator(1))
+ax.xaxis.set_major_formatter(mdates.DateFormatter("%b\n%Y"))
 ax.xaxis.set_minor_locator(mdates.MonthLocator())
-#ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(5))
+ax.xaxis.set_minor_formatter(FuncFormatter(custom_date_format))
 plt.show()
 
 
