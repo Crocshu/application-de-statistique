@@ -19,11 +19,10 @@ dic_typemvt={1:"Livraison",3:"Facturation",4:"Retour",5:"Avoir",7:"Dispensation"
 8:"Régulation livraison",10:"Emprunt",20:"Prêt",21:"Perte",22:"Destruction",23:"Rappel",
 24:"Périmé",30:"Transfert"}
 
-data=df[[axe_x, axe_y]]
+data=df[[axe_x,"QUANTITE"]]
 typemvt=sorted(list(data[axe_x].value_counts().index.values))
-data[axe_y] = pd.to_datetime(data[axe_y],dayfirst=True)
 #Ajout d'une colonne avec le jour de la semaine correspondant à la datemvt
-data[cherche1]=data[axe_y].dt.day_name(locale='fr_FR')
+data[cherche1] = pd.to_datetime(df[axe_y],dayfirst=True).dt.day_name(locale='fr_FR')
 #data4[cherche1]=pd.Categorical(data4[axe_y], categories=days2, ordered=True)
 # Génère une liste de nbmvt par typemvt en valeur absolue pour chaque jour
 liste_liste=[[len(data[(data[axe_x]==m)&(data[cherche1]==d)]) for m in typemvt]for d in days]
