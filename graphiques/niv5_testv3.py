@@ -4,7 +4,7 @@ import pandas as pd
 from matplotlib.ticker import FuncFormatter
 from main import ouvrir_fichier as of
 #Numéro 4 du niveau 5 (parcours)
-x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
+x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
 df=x
 axe_x="TYPEMVT"
 axe_y="DATEMVT"

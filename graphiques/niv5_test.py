@@ -29,7 +29,7 @@ plt.ylabel("Fréquence")
 plt.show()
 """
 #Numéro 4 du niveau 5 (parcours)
-x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000,separator=";",pandas=True)
+x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000,separator=";",pandas=True)
 df=x
 axe_x="TYPEMVT"
 axe_y="DATEMVT"

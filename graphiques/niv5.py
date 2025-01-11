@@ -34,5 +34,5 @@ def graph5(df:pd.DataFrame,axe_x:str,axe_y:str,cherche:str,cherche1:str,cherche2
     plt.show()
     return data2
 if __name__=="__main__":
-    x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=100000,separator=";",pandas=True)
+    x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=100000,separator=";",pandas=True)
     print(graph5(df=x,axe_x="TYPEMVT",axe_y="DATEMVT",cherche="NBMVT",cherche1='JourSemaine',cherche2="NOMMVT",title='Proportion de mouvements par type de mouvement et par jour de la semaine'))

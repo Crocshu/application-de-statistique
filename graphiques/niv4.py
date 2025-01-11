@@ -25,6 +25,6 @@ def graph4(fichier: dict, index: str, asupp:str ,nbr: int = 10):
     plt.show() 
 
 if __name__=="__main__":
-    fichier = of(nzip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";")
+    fichier = of(ezip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";")
     graph4(fichier=fichier, index="SERVICE", asupp="-1")
 

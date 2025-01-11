@@ -28,6 +28,6 @@ def graph2v2(fichier: pd.DataFrame,col: str ,cherche: str,supp: str = None): # c
     fig = serviceF.plot(title="Nombre de mouvements par service", kind="bar", color="orange", legend=False).get_figure()
     fig.savefig("graphique_servicev2.png")
 
-fichier = of(nzip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";", pandas=True)
+fichier = of(ezip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";", pandas=True)
 graph2(fichier=fichier, col="SERVICE", supp="-1")
 graph2v2(fichier=fichier, col="SERVICE", supp="-1", cherche="NBMVT")

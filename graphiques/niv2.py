@@ -17,5 +17,5 @@ def graph2(fichier: pd.DataFrame,col: str ,supp: str = None): # col est la colon
     fig.savefig("graphique_service.png")
 
 if __name__=="__main__":
-    fichier = of(nzip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";", pandas=True)
+    fichier = of(ezip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";", pandas=True)
     graph2(fichier=fichier, col="SERVICE", supp="-1")

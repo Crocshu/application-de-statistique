@@ -14,7 +14,7 @@ def graph6(df1:pd.DataFrame,df2:pd.DataFrame,axe_x:str,axe_y:str,prod:str,title:
     data_chloro2=data_chloro.groupby(axe_y)[axe_x].sum()
     print(data_chloro)
     return data_chloro2
-x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
-y=of(nzip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
+x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
+y=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
 g6=graph6(df1=x,df2=y,axe_x="PRCLEUNIK",axe_y="DATEMVT",prod="OLANZAPINE",title='Proportion de mouvements par type de mouvement et par jour de la semaine')
 print(g6)

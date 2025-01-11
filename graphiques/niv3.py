@@ -30,6 +30,7 @@ def graph3(df:pd.DataFrame,axe_x:str,axe_y:str,cherche:str,title:str)->plt:
     plt.legend(loc="upper left") # Positionne la légende en haut à gauche
     def custom_date_format(x,pos=None): #Formatage de la date sur l'axe des abscisses sachant que la valeur en abscisse donnée par matplotlib est en Epoch Unix
         datess = pd.to_datetime(x,unit='D', origin='unix')  # Convertir epoch Unix en datetime
+        print(x,datess)
         # Condition : Si le mois est Juillet
         if datess.month == 7: return datess.strftime("%b")  # Afficher le mois en lettre 
         return None  # Sinon, ne rien afficher
@@ -40,6 +41,26 @@ def graph3(df:pd.DataFrame,axe_x:str,axe_y:str,cherche:str,title:str)->plt:
     ax.xaxis.set_minor_locator(mdates.MonthLocator())
     ax.xaxis.set_minor_formatter(FuncFormatter(custom_date_format))
     plt.show()
+def graph3v2(df:pd.DataFrame)->plt:
+    axe_x,axe_y,title,cherche="DATEMVT","SERVICE",'Nombre de mouvements par mois pour les 4 principaux services','NBVMT'
+    #Transforme le type de chaque élément de la colonne axe_y(DATEMVT) en str
+    df[axe_y] = df[axe_y].astype(str)
+    # Récupère les 4 premiers services avec le plus de mouvement sans -1.
+    top_serv=list(df[df[axe_y] != "-1"][axe_y].value_counts()[:4].index.values)
+    #Récupère uniquement les lignes des top services
+    data4=df[df[axe_y].isin(top_serv)]
+    #Création d'une colonne cherche(NBMVT) qui a sur chaque ligne la valeur 0 pour que lors de la création de la pivot_table, il n'y ait pas d'erreur
+    data4[cherche] = 0
+    #Reformatage de la date au premier de chaque mois : 15/05/2022 -> 2022-05-01
+    data4[axe_x] = pd.to_datetime(pd.to_datetime(data4[axe_x],dayfirst=True).dt.strftime('01/%m/%Y'),dayfirst=True)
+    #Création d'une catégorie pour pouvoir trier les ervices en fonction de leur nb de mvt total
+    data4[axe_y] = pd.Categorical(data4[axe_y], categories=top_serv, ordered=True)
+    #Fait un tableau croisé, met en ligne les dates et en colonnes les services et renvoie comme valeur le nb de ligne où le service est mentionné sur ce mois
+    donnee_graph=pd.pivot_table(data4, values=cherche, index=axe_x, columns=axe_y, aggfunc='count')
+    donnee_graph.plot()
+    plt.title(title)
+    plt.show()
 if __name__=="__main__":
-    x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
-    print(graph3(df=x,axe_x="DATEMVT",axe_y="SERVICE",cherche='NBMVT',title='Nombre de mouvements par mois pour les 4 principaux services'))
+    x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
+    #graph3(df=x,axe_x="DATEMVT",axe_y="SERVICE",cherche='NBMVT',title='Nombre de mouvements par mois pour les 4 principaux services')
+    graph3v2(x)

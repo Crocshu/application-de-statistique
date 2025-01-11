@@ -37,12 +37,12 @@ def crea_dfv2(fich,echan:int,separ,tbsht:bool) -> pd.DataFrame:
     print((" Il y a "+str(t_e)+" % d'erreur et il y a "+str((l-d))+" mauvaise(s) ligne(s) ").center(102,"#")+"\n")
     return fichierf
 
-def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool = False,troubleshoot:bool = False) -> dict:
+def ouvrir_fichier(ezip,nfile,echantillon:int,separator:str,pandas:bool = False,troubleshoot:bool = False) -> dict:
     func=crea_df
     if pandas : func=crea_dfv2 
     loc=os.getcwd()
-    if nzip != None :
-        zip=os.path.join(loc,nzip) # Joindre les chemins pour faire un script multiOS
+    if ezip != None :
+        zip=os.path.join(loc,ezip) # Joindre les chemins pour faire un script multiOS
         with zipfile.ZipFile(zip) as myzip:
             with myzip.open(nfile) as file:
                 return func(fich=file,echan=echantillon,separ=separator,tbsht=troubleshoot)
@@ -52,10 +52,10 @@ def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool = False,
 
 if __name__=="__main__":
     #Changement de séparateur pour l'ouverture du fichier medocs_produits.csv après étude de la structure du fichier, pour éviter l'erreur du produit 35469
-    y1=ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=';"',pandas=False,troubleshoot=True)
-    y2=ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
-    x1=ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True)
-    x2=ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True)
+    y1=ouvrir_fichier(ezip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=';"',pandas=False,troubleshoot=True)
+    y2=ouvrir_fichier(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
+    x1=ouvrir_fichier(ezip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True)
+    x2=ouvrir_fichier(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True)
     print(y1)
     print(y2)
     print(x1)
