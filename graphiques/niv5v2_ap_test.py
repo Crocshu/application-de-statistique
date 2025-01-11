@@ -47,6 +47,35 @@ def graph5(df:pd.DataFrame,axe_x:str,axe_y:str,niveau:str,cherche1:str,title:str
     plt.legend(loc='lower center')
     plt.title(title)
     plt.show()
+def graph5v2(df:pd.DataFrame):
+    axe_x,axe_y,cherche1="TYPEMVT","DATEMVT",'JourSemaine'
+    title='Proportion de mouvements par type de mouvement et par jour de la semaine'
+    days,colors=['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],["red","orange","greenyellow","khaki","palegreen","green"]
+    dic_typemvt={1:"Livraison",3:"Facturation",4:"Retour",5:"Avoir",7:"Dispensation",8:"Régulation livraison",
+    10:"Emprunt",20:"Prêt",21:"Perte",22:"Destruction",23:"Rappel", 24:"Périmé",30:"Transfert"}
+    typemvt=sorted(list(df[axe_x].value_counts().index.values))
+    typemvt2=[dic_typemvt[x] for x in typemvt]
+    df1=pd.DataFrame(df)
+    #Ajout d'une colonne avec le jour de la semaine correspondant à la datemvt
+    df1[cherche1] = pd.Categorical(pd.to_datetime(df1[axe_y],dayfirst=True).dt.day_name(locale='fr_FR'), categories=days, ordered=True)
+    df1[axe_x]=pd.Categorical(df1[axe_x].map(dic_typemvt), categories=typemvt2, ordered=True)
+    data=pd.pivot_table(df1, values="QUANTITE", index=cherche1, columns=axe_x, aggfunc='count')
+    total_mouvements_par_type = data.sum(axis=1)
+    taux_presence = data.div(total_mouvements_par_type/100, axis=0)
+    ax=taux_presence.plot(kind='barh', stacked=True, figsize=(10, 6),color=colors)
+    # Ajout des annotations pour chaque portion des barres
+    for i, (index, row) in enumerate(taux_presence.iterrows()):
+        cumulative_width = 0  # Largeur cumulative pour le stacking
+        for value in row:
+            if value > 4:  # Ajouter une annotation si la portion dépasse 4
+                # Position x (milieu de la portion) , # Position y (ligne correspondante) , # Texte à afficher , # Centrage du texte ,, # Style du texte
+                ax.text(cumulative_width + value / 2, i,  f'{int(round(value, 0))}%', va='center',ha='center', color="white", fontsize=9)
+            cumulative_width += value  # Mise à jour de la position cumulative pour le stacking
+    plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x,pos : f'{int(x)}%'))
+    plt.legend(loc='lower center')
+    plt.title(title)
+    plt.show()
 if __name__=="__main__":
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
-    print(graph5(df=x,axe_x="TYPEMVT",axe_y="DATEMVT",niveau="pasnoob",cherche1='JourSemaine',title='Proportion de mouvements par type de mouvement et par jour de la semaine'))
+    #graph5(df=x,axe_x="TYPEMVT",axe_y="DATEMVT",niveau="pasnoob",cherche1='JourSemaine',title='Proportion de mouvements par type de mouvement et par jour de la semaine')
+    graph5v2(df=x)
