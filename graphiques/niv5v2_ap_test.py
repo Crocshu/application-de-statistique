@@ -47,5 +47,6 @@ def graph5(df:pd.DataFrame,axe_x:str,axe_y:str,niveau:str,cherche1:str,title:str
     plt.legend(loc='lower center')
     plt.title(title)
     plt.show()
-x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
-print(graph5(df=x,axe_x="TYPEMVT",axe_y="DATEMVT",niveau="pasnoob",cherche1='JourSemaine',title='Proportion de mouvements par type de mouvement et par jour de la semaine'))
+if __name__=="__main__":
+    x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
+    print(graph5(df=x,axe_x="TYPEMVT",axe_y="DATEMVT",niveau="pasnoob",cherche1='JourSemaine',title='Proportion de mouvements par type de mouvement et par jour de la semaine'))

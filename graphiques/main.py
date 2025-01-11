@@ -50,16 +50,14 @@ def ouvrir_fichier(nzip,nfile,echantillon:int,separator:str,pandas:bool = False,
         with open(nfile,"r",encoding="latin1") as file:
             return func(fich=file,echan=echantillon,separ=separator,tbsht=troubleshoot)
 
-#Changement de séparateur pour l'ouverture du fichier medocs_produits.csv après étude de la structure du fichier, pour éviter l'erreur du produit 35469
-#y=ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=';"',pandas=False,troubleshoot=True)
-#y=ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
-#x=ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True)
-# print(ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True))
-#Batterie de test utilisée pour troubleshoot
-"""
-print(len(y["CLE_PRODUIT"]))#,len(x),list(x["CLE_PRODUIT"])[0])#,list(x["CLE_PRODUIT"]),y["CLE_PRODUIT"])#,x[x.CLE_PRODUIT == 35469])
-for i in list(x["CLE_PRODUIT"]):
-    if str(i) not in y["CLE_PRODUIT"]:print(i,"io")
-for i in y["CLE_PRODUIT"]:
-    if int(i) not in list(x["CLE_PRODUIT"]):print(i,"oi")
-"""
+if __name__=="__main__":
+    #Changement de séparateur pour l'ouverture du fichier medocs_produits.csv après étude de la structure du fichier, pour éviter l'erreur du produit 35469
+    y1=ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=';"',pandas=False,troubleshoot=True)
+    y2=ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
+    x1=ouvrir_fichier(nzip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True)
+    x2=ouvrir_fichier(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True)
+    print(y1)
+    print(y2)
+    print(x1)
+    print(x2)
+

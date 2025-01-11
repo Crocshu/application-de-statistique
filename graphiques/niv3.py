@@ -40,5 +40,6 @@ def graph3(df:pd.DataFrame,axe_x:str,axe_y:str,cherche:str,title:str)->plt:
     ax.xaxis.set_minor_locator(mdates.MonthLocator())
     ax.xaxis.set_minor_formatter(FuncFormatter(custom_date_format))
     plt.show()
-x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
-print(graph3(df=x,axe_x="DATEMVT",axe_y="SERVICE",cherche='NBMVT',title='Nombre de mouvements par mois pour les 4 principaux services'))
+if __name__=="__main__":
+    x=of(nzip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
+    print(graph3(df=x,axe_x="DATEMVT",axe_y="SERVICE",cherche='NBMVT',title='Nombre de mouvements par mois pour les 4 principaux services'))

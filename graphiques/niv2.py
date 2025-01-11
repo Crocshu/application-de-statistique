@@ -16,6 +16,6 @@ def graph2(fichier: pd.DataFrame,col: str ,supp: str = None): # col est la colon
     fig = serviceF.plot(title="Nombre de mouvements par service", kind="bar", x=0, color="orange", legend=False).get_figure()
     fig.savefig("graphique_service.png")
 
-
-fichier = of(nzip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";", pandas=True)
-graph2(fichier=fichier, col="SERVICE", supp="-1")
+if __name__=="__main__":
+    fichier = of(nzip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";", pandas=True)
+    graph2(fichier=fichier, col="SERVICE", supp="-1")
