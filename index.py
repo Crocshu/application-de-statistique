@@ -10,6 +10,7 @@ class index(tk.Tk):
 
         self.title("Application Graphiques")
         self.geometry(WINDOW_SIZE)
+        self.resizable(width=False, height=False)
 
         self.container = tk.Frame(self)
         self.container.pack(fill="both", expand=True)

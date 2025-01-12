@@ -19,7 +19,7 @@ class Page1(tk.Frame):
         ttk.Label(self.header, text="SAE 105 / Graphiques", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=30, anchor='n')
 
         self.contenu = ttk.Frame(self)
-        self.contenu.pack(fill='both', expand=True, padx=20, pady=20) # padx & pady servent a ajouter des marges extérieures
+        self.contenu.pack(fill='both', expand=True, padx=10, pady=100) # padx & pady servent a ajouter des marges extérieures
 
         title = ttk.Label(self.contenu, text="Nos types de graphiques", font=("Arial", 20))
         title
@@ -31,6 +31,13 @@ class Page1(tk.Frame):
             photo = photo.subsample(3, 3)
             self.illustrations.append(photo)
 
+        self.nom_graph = ["Prix moyen", 
+                          "Nombre mouvement / Services", 
+                          "Mouvement par mois 3 principaux services", 
+                          "Proportion mouvement / Services",
+                          "A ajouter",
+                          "Evolution du prix des 4 produites + vendus"]
+        
         for i in range(2):  # Lignes
             for j in range(3):  # Colonnes
                 index = i * 3 + j
@@ -40,7 +47,7 @@ class Page1(tk.Frame):
                 # Bouton avec image
                 btn = ttk.Button(
                     frame,
-                    text=f'Graphique {index + 1}',
+                    text=self.nom_graph[index],
                     image=self.illustrations[index],
                     compound=TOP
                 )
