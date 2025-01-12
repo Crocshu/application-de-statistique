@@ -25,5 +25,6 @@ class index(tk.Tk):
         page = self.pages[page_class]
         page.tkraise()
 
+
 app = index()
 app.mainloop()
