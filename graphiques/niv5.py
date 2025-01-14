@@ -71,7 +71,7 @@ def graph5v2(df:pd.DataFrame):
     data=pd.pivot_table(df1, values="QUANTITE", index=cherche1, columns=axe_x, aggfunc='count')
     total_mouvements_par_type = data.sum(axis=1)
     taux_presence = data.div(total_mouvements_par_type/100, axis=0)
-    ax=taux_presence.plot(kind='barh', stacked=True, figsize=(10, 6),color=colors)
+    ax=taux_presence.plot(kind='barh', stacked=True, figsize=(6.4, 4.8),color=colors)
     # Ajout des annotations pour chaque portion des barres
     for i, (index, row) in enumerate(taux_presence.iterrows()):
         cumulative_width = 0  # Largeur cumulative pour le stacking

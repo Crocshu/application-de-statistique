@@ -40,7 +40,7 @@ def graph6v2(df1:pd.DataFrame,df2:pd.DataFrame,exclusions:list=[],nprod:int=9,e_
     data_quant=pd.pivot_table(data_filtered, values=axe_y1, index=axe_x, columns=nom3, aggfunc='sum')
     data_value=pd.pivot_table(data_filtered, values=axe_y2, index=axe_x, columns=nom3, aggfunc='sum')
     dataf=data_value/data_quant
-    ax=dataf.plot()
+    ax=dataf.plot(figsize=(6.4, 4.8))
     ax.set_ylabel("Valeur Unitaire (en €)")  # Nom de l'index (l'axe des X)
     title=f'Evolution du prix unitaire des {len(dataf.columns)} produit(s) avec le plus de mouvements' if len(e_p)==0 else 'Evolution du prix unitaire pour la liste de produit(s) demandée'
     plt.title(title)

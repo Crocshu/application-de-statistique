@@ -33,7 +33,7 @@ class Page1(tk.Frame):
 
         self.nom_graph = ["Prix moyen", 
                           "Nombre mouvement / Services", 
-                          "Mouvement par mois 3 principaux services", 
+                          "Mouvement par mois 4 principaux services", 
                           "Proportion mouvement / Services",
                           "A ajouter",
                           "Evolution du prix des 4 produites + vendus"]
