@@ -1,4 +1,3 @@
-from main import ouvrir_fichier as of
 import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
 import matplotlib.pyplot as plt
@@ -61,6 +60,9 @@ def graph3v2(df:pd.DataFrame)->plt:
     plt.title(title)
     plt.show()
 if __name__=="__main__":
+    from main import ouvrir_fichier as of
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
     #graph3(df=x,axe_x="DATEMVT",axe_y="SERVICE",cherche='NBMVT',title='Nombre de mouvements par mois pour les 4 principaux services')
     graph3v2(x)
+else:
+    from graphiques.main import ouvrir_fichier as of

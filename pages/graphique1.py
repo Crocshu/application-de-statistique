@@ -8,7 +8,6 @@ class Graphique1(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         
-        print("Initialisation de Graphique1")  # Debug print
         
         header = ttk.Style()
         header.configure("Header.TFrame", background=COLORS["primary"], borderwidth=2, relief='solid')
