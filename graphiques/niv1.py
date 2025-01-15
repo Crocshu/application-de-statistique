@@ -10,7 +10,7 @@ def graph1(df:dict,axe_x:str,axe_y:str,title:str)->plt:
     plt.bar(mois, moy_mois,color='orange')# Faire graphique en barre avec mois en valeur abscisse et moy_mois en valeur ordonnée avec une couleur orange
     plt.xticks(rotation=90)  # Rotation de 90 degrés pour rendre les valeurs en abscisses verticales
     plt.title(title)# Ajout du titre
-    plt.show()# Afficher le graphique
+    # plt.show()# Afficher le graphique
     return ax,ay,mois,moy_mois
 
 def graph1v2(df:dict,axe_x:str,axe_y:str,title:str)->plt:
