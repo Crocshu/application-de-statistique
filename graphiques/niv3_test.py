@@ -84,5 +84,11 @@ ax.xaxis.set_major_formatter(mdates.DateFormatter("%b\n%Y"))
 ax.xaxis.set_minor_locator(mdates.MonthLocator())
 ax.xaxis.set_minor_formatter(FuncFormatter(formatter))
 """
+#Nathan Robert
+"""
+data4["VALHT"]=data4["VALHT"].str.replace(',', '.').astype(float)
+data4["jour"] = pd.Categorical(data4[axe_y], categories=list(days.values()), ordered=True)
+data_agg=pd.pivot_table(data4,values="VALHT",index="DATEMVT",columns="SERVICE",aggfunc='mean')
+"""
 
 
