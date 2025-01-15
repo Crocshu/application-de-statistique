@@ -1,4 +1,4 @@
-from main import ouvrir_fichier as of
+from graphiques.main import ouvrir_fichier as of
 import matplotlib.pyplot as plt
 import datetime as dt
 def graph1(df:dict,axe_x:str,axe_y:str,title:str)->plt:
@@ -28,9 +28,13 @@ def graph1v2(df:dict,axe_x:str,axe_y:str,title:str)->plt:
     plt.show()# Afficher le graphique
     return None
 
-if __name__=="__main__":
-    #Valeurs test :
+# if __name__=="__main__":
+#     #Valeurs test :
+#     x1={'PRCLEUNIK': ['5926', '3716', '29207', '2034', '11675', '2386', '1855', '1856', '14522'], 'DATEMVT': ['03/06/2020', '03/06/2020', '03/06/2020', '03/06/2020', '06/03/2020', '06/03/2020', '06/03/2020', '06/03/2020', '06/03/2020'], 'HEUREMVT': ['0823', '0823', '0833', '0833', '1224', '1224', '1224', '1224', '1224'], 'SENSMVT': ['2', '2', '2', '2', '2', '2', '2', '2', '2'], 'TYPEMVT': ['7', '7', '7', '7', '7', '7', '7', '7', '7'], 'SERVICE': ['1602', '1602', '1901', '1901', '5121', '5121', '5121', '5121', '5121'], 'MAGASIN': ['0433', '0433', '0433', '0433', '0433', '0433', '0433', '0433', '0433'], 'QUANTITE': ['20', '10', '12', '20', '56', '24', '10', '20', '20'], 'VALHT': ['0,7', '5,197', '10,7988', '43,002', '1,0024', '0,288', '0,37', '0,598', '0,4'], 'B_URGENT': ['1', '1', '1', '1', '0', '0', '0', '0', '0']}
+#     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
+#     graph1(x,"DATEMVT","VALHT",'Prix moyen des mouvements par mois')
+#     #graph1v2(x,"DATEMVT","VALHT",'Prix moyen des mouvements par mois')
+
     x1={'PRCLEUNIK': ['5926', '3716', '29207', '2034', '11675', '2386', '1855', '1856', '14522'], 'DATEMVT': ['03/06/2020', '03/06/2020', '03/06/2020', '03/06/2020', '06/03/2020', '06/03/2020', '06/03/2020', '06/03/2020', '06/03/2020'], 'HEUREMVT': ['0823', '0823', '0833', '0833', '1224', '1224', '1224', '1224', '1224'], 'SENSMVT': ['2', '2', '2', '2', '2', '2', '2', '2', '2'], 'TYPEMVT': ['7', '7', '7', '7', '7', '7', '7', '7', '7'], 'SERVICE': ['1602', '1602', '1901', '1901', '5121', '5121', '5121', '5121', '5121'], 'MAGASIN': ['0433', '0433', '0433', '0433', '0433', '0433', '0433', '0433', '0433'], 'QUANTITE': ['20', '10', '12', '20', '56', '24', '10', '20', '20'], 'VALHT': ['0,7', '5,197', '10,7988', '43,002', '1,0024', '0,288', '0,37', '0,598', '0,4'], 'B_URGENT': ['1', '1', '1', '1', '0', '0', '0', '0', '0']}
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
     graph1(x,"DATEMVT","VALHT",'Prix moyen des mouvements par mois')
-    #graph1v2(x,"DATEMVT","VALHT",'Prix moyen des mouvements par mois')
