@@ -20,7 +20,7 @@ class Graphique1(tk.Frame):
 
         x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
         
-        graph1(x,"DATEMVT","VALHT",'Prix moyen des mouvements par mois')
+        graph1(x)
         
         # Créer et afficher le graphique
         plt.gcf().set_size_inches(5, 3)  # Modifiez ces valeurs pour changer la taille
