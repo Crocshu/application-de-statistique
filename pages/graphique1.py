@@ -17,22 +17,21 @@ class Graphique1(tk.Frame):
         self.header.place(x=0, y=0, relwidth=1)
 
         ttk.Label(self.header, text="Prix moyen", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=10, anchor='n')
+        ttk.Button(self.header, text="Afficher le graphique", command=lambda : creation_graph()).place(relx=0.1, y=10, anchor='n')
 
         x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
-        
-        graph1(x)
-        
-        # Créer et afficher le graphique
-        plt.gcf().set_size_inches(5, 3)  # Modifiez ces valeurs pour changer la taille
-        
-        # Ajuster les marges pour tout voir
-        plt.tight_layout()
-        
-        # Créer le canvas
-        canvas = FigureCanvasTkAgg(plt.gcf(), self)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill='both', expand=True)
 
-        # canvas = FigureCanvasTkAgg(fig, master=graph)
 
-        # def creation_graph (graph):
+        def creation_graph():
+            graph1(x,"DATEMVT","VALHT",'Prix moyen des mouvements par mois')
+
+            # Créer et afficher le graphique
+            plt.gcf().set_size_inches(5, 4)  # Modifiez ces valeurs pour changer la taille
+
+            # Ajuster les marges pour tout voir
+            plt.tight_layout()
+            plt.subplots_adjust(bottom=0.35) 
+            # Créer le canvas
+            canvas = FigureCanvasTkAgg(plt.gcf(), self)
+            canvas.draw()
+            canvas.get_tk_widget().pack(side="bottom", anchor="s")    
