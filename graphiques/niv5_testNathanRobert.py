@@ -22,6 +22,9 @@ data3=df[[axe_y,axe_x,"QUANTITE"]]
 #Transformation colonne avec le type de mvt pour passer des n° de mvt aux noms grâce au dic_typemvt
 data3[axe_x]=data3[axe_x].map(dic_typemvt)
 data4=pd.pivot_table(data3,index=axe_y,columns=axe_x,values="QUANTITE",aggfunc='count')
+total_mouvements_par_magasin = data4.sum(axis=1)
+taux_presence = data4.div(total_mouvements_par_magasin/100, axis=0)
+taux_presence.plot(kind='barh', stacked=True)
 # Change le formatage de l'axe des abscisses pour le faire apparaître sous forme de pourcentage
 #Fixe la position de la légende
 plt.legend(loc='best')

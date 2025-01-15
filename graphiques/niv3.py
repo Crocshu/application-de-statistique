@@ -3,7 +3,8 @@ from matplotlib.ticker import FuncFormatter
 import matplotlib.pyplot as plt
 import pandas as pd
 #Numéro 2 du niveau 3 (parcours)
-def graph3(df:pd.DataFrame,axe_x:str,axe_y:str,cherche:str,title:str)->plt:
+def graph3(df:pd.DataFrame)->plt:
+    axe_x,axe_y,title,cherche="DATEMVT","SERVICE",'Nombre de mouvements par mois pour les 4 principaux services','NBVMT'
     data=df[[axe_x, axe_y]]
     data[axe_y]=[str(y) for y in data[axe_y]] # Mise sous même format des noms des services
     # Dataframe avec les services en index et leur nombre de mouvement en colonne trié en fonction du nombre de mouvement décroissant.

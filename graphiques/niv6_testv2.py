@@ -21,7 +21,7 @@ data=df1[[prod,axe_x,axe_y1,axe_y2]]
 data[axe_x] = pd.to_datetime(pd.to_datetime(data[axe_x],dayfirst=True).dt.strftime('01/%m/%Y'),dayfirst=True)
 #data[data[axe_y1].apply(lambda x: not isinstance(x, (int))] Filtre pour le type de chaque élément, ici prend les éléments qui ne sont pas int
 # Remplacement des virgules par des points pour les str et passage en str pour les int avec le .apply puis conversion en float
-data[axe_y1]=data[axe_y1].apply(lambda x: str(x).replace(',', '.') if isinstance(x, (int, str)) else x).astype(float).dropna()
+data[axe_y1]=data[axe_y1].apply(lambda x: str(x).replace(',', '.') if isinstance(x, (int, str)) else x).astype(float)#.dropna()
 data[axe_y2] = data[axe_y2].str.replace(',', '.').astype(float)
 top_prod=list(data.groupby(prod)[axe_y1].sum().sort_values(ascending=False).index.values)[:nprod] #Les quatres produits avec la plus grande quantité en mouvement
 data_filtered=data[data[prod].isin(top_prod)]
