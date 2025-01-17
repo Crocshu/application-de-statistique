@@ -54,9 +54,10 @@ def graph6v2(df1:pd.DataFrame,df2:pd.DataFrame,exclusions:list=[],nprod:int=9,e_
     # Nom du graphique 'dynamique'
     title=f'Evolution du prix unitaire des {len(dataf.columns)} produit(s) avec le plus de mouvements' if len(e_p)==0 else 'Evolution du prix unitaire pour la liste de produit(s) demandée'
     plt.title(title)
+    plt.tight_layout()
     plt.show()
 if __name__=="__main__":
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
     y=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
     #graph6(df1=x,df2=y)
-    graph6v2(df1=x,df2=y)#,e_p=[2187])
+    graph6v2(df1=x,df2=y,e_p=[2187])
