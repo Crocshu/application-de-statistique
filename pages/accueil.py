@@ -2,16 +2,10 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import *
-from pages.graphique1 import Graphique1
-from pages.graphique2 import Graphique2
-from pages.graphique3 import Graphique3
-from pages.graphique4 import Graphique4
-from pages.graphique5 import Graphique5
-from pages.graphique6 import Graphique6
 
 from config import COLORS, ecran
 
-class Page1(tk.Frame):
+class Accueil(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         header = ttk.Style()
@@ -44,6 +38,13 @@ class Page1(tk.Frame):
                           "Proportion de mouvements / mouvement et par jour",
                           "Evolution du prix des 4 produites + vendus"]
         
+        from pages.graphique1 import Graphique1
+        from pages.graphique2 import Graphique2
+        from pages.graphique3 import Graphique3
+        from pages.graphique4 import Graphique4
+        from pages.graphique5 import Graphique5
+        from pages.graphique6 import Graphique6
+
         self.graph = [Graphique1,
                       Graphique2,
                       Graphique3,
