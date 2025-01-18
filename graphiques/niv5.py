@@ -49,7 +49,7 @@ def graph5(df:pd.DataFrame,axe_x:str,axe_y:str,niveau:str,cherche1:str,title:str
     plt.show()
 def graph5v2(df:pd.DataFrame):
     axe_x,axe_y,cherche1="TYPEMVT","DATEMVT",'JourSemaine'
-    title='Proportion de mouvements par type de mouvement et par jour de la semaine'
+    title='Proportion de mouvements par type de mouvement et par jour'
     days={'Monday': 'Lundi','Tuesday': 'Mardi','Wednesday': 'Mercredi','Thursday': 'Jeudi','Friday': 'Vendredi','Saturday': 'Samedi','Sunday': 'Dimanche'}
     colors=["red","orange","greenyellow","khaki","palegreen","green"]
     dic_typemvt={1:"Livraison",3:"Facturation",4:"Retour",5:"Avoir",7:"Dispensation",8:"Régulation livraison",
@@ -69,7 +69,7 @@ def graph5v2(df:pd.DataFrame):
     #Applique une division entre les valeurs de data6 et celles de total_mouvements_par_type divisé par 100 (pour les %) à chaque colonne, axis=0 pour itérer par colonne
     prc_presence = data6.div(total_mouvements_par_type/100, axis=0)
     #Définission du graphique avec un .plot
-    ax=prc_presence.plot(kind='barh', stacked=True, color=colors if len(colors)==len(prc_presence.index) else None)
+    ax=prc_presence.plot(kind='barh', stacked=True, color=colors if len(colors)==len(prc_presence.index)-1 else None,figsize=(6.4,4.8))
     # Ajout des annotations pour chaque portion des barres
     for i, (index, row) in enumerate(prc_presence.iterrows()):
         cumulative_width = 0  # Largeur cumulative pour le stacking
@@ -83,6 +83,7 @@ def graph5v2(df:pd.DataFrame):
     #Fixe la position de la légende
     plt.legend(loc='best')
     plt.title(title)
+    plt.tight_layout()
     plt.show()
 if __name__=="__main__":
     from main import ouvrir_fichier as of

@@ -22,7 +22,7 @@ def crea_df(fich,echan:int,separ:str,tbsht:bool) -> dict:
     t_e=(round(1-(len(l_l)/echan),3))*100 #Calcul du taux d'erreur
     print((f" Il y a {t_e} % d'erreur et il y a {echan-len(l_l)} mauvaise(s) ligne(s) ").center(102,"#")+"\n")
     ini_dico={i:[] for i in l_l[0]} #Initialisation du dictionnaire 
-    {ini_dico[list(ini_dico.keys())[j.index(k)]].append(k) for j in l_l[1:] for k in j} #Remplissage du dictionnaire en faisant correspondre chaque élément à sa colonne grâce à la liste de liste
+    {ini_dico[list(ini_dico.keys())[k]].append(j[k]) for j in l_l[1:] for k in range(len(j))} #Remplissage du dictionnaire en faisant correspondre chaque élément à sa colonne grâce à la liste de liste
     return ini_dico
 
 def crea_dfv2(fich,echan:int,separ,tbsht:bool) -> pd.DataFrame:
@@ -52,7 +52,7 @@ def ouvrir_fichier(ezip,nfile,echantillon:int,separator:str,pandas:bool = False,
 
 if __name__=="__main__":
     #Changement de séparateur pour l'ouverture du fichier medocs_produits.csv après étude de la structure du fichier, pour éviter l'erreur du produit 35469
-    y1=ouvrir_fichier(ezip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=';"',pandas=False,troubleshoot=True)
+    y1=ouvrir_fichier(ezip=None,nfile="medocs_produits.csv",echantillon=1000000000,separator=';"',pandas=False)
     y2=ouvrir_fichier(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=False)
     x1=ouvrir_fichier(ezip=None,nfile="medocs_produits.csv",echantillon=10000000000,separator=";",pandas=True)
     x2=ouvrir_fichier(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True)

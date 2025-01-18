@@ -32,7 +32,7 @@ def graph6v2(df1:pd.DataFrame,df2:pd.DataFrame,exclusions:list=[],nprod:int=9,e_
     #Jonction du DataFrame de donnée et d'informations grâce aux colonnes prod et prod 2 en supprimant la colonne prod2 et en renommant la colonne nom
     data = pd.merge(data, df2[[prod2,nom,typ]], left_on=prod, right_on=prod2).drop(columns=[prod2]).rename(columns={nom: nom2})
     #Modification du format du nom du produit en ne gardant que ce qu'il y a avant la première virgule
-    data[nom2]=data[nom2].str.split(',').str[0]
+    data[nom2]=data[nom2].str.split(' ').str[0]
     #Création d'une colonne nom3 contenant le nom2 prod typ
     data[nom3] = data.apply(lambda row: f"{row[nom2]} ({row[prod]}) ({row[typ]})", axis=1)
     # Remplacement des virgules par des points pour les str et passage en str en plus pour les int avec le .apply puis conversion en float et suppression des lignes avec Nan
@@ -49,15 +49,16 @@ def graph6v2(df1:pd.DataFrame,df2:pd.DataFrame,exclusions:list=[],nprod:int=9,e_
     data_value=pd.pivot_table(data_filtered, values=axe_y2, index=axe_x, columns=nom3, aggfunc='sum')
     #Tableau croisé dynamique du prix unitaire moyen des produit en mouvement pour chaque produit en fonction de la date
     dataf=data_value/data_quant
-    ax=dataf.plot()#Création du graphique
+    ax=dataf.plot(figsize=(6.4,4.8))#Création du graphique
     ax.set_ylabel("Valeur Unitaire (en €)")  # Nom de l'index (l'axe des X)
     # Nom du graphique 'dynamique'
     title=f'Evolution du prix unitaire des {len(dataf.columns)} produit(s) avec le plus de mouvements' if len(e_p)==0 else 'Evolution du prix unitaire pour la liste de produit(s) demandée'
     plt.title(title)
+    plt.legend(loc='best')
     plt.tight_layout()
     plt.show()
 if __name__=="__main__":
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
     y=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
     #graph6(df1=x,df2=y)
-    graph6v2(df1=x,df2=y,e_p=[2187])
+    graph6v2(df1=x,df2=y)#,e_p=[2187])

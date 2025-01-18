@@ -57,8 +57,9 @@ def graph3v2(df:pd.DataFrame)->plt:
     data4[axe_y] = pd.Categorical(data4[axe_y], categories=top_serv, ordered=True)
     #Fait un tableau croisé, met en ligne les dates et en colonnes les services et renvoie comme valeur le nb de ligne où le service est mentionné sur ce mois
     donnee_graph=pd.pivot_table(data4, values=cherche, index=axe_x, columns=axe_y, aggfunc='count')
-    donnee_graph.plot()
+    donnee_graph.plot(figsize=(6.4,4.8))
     plt.title(title)
+    plt.tight_layout()
     plt.show()
 if __name__=="__main__":
     from main import ouvrir_fichier as of

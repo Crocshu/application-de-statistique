@@ -45,7 +45,7 @@ class Graphique1(tk.Frame):
         else:
             # Si pas de graphique, on le crée
             plt.figure()
-            graph1(self.controller.x,"DATEMVT","VALHT",'Prix moyen des mouvements par mois')
+            graph1(self.controller.x)
             plt.gcf().set_size_inches(5, 4)
             plt.tight_layout()
             plt.subplots_adjust(bottom=0.30)
