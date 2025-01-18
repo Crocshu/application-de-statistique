@@ -19,7 +19,7 @@ class Graphique2(tk.Frame):
         self.header.place(x=0, y=0, relwidth=1)
 
         ttk.Label(self.header, text="Prix moyen", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=10, anchor='n')  
-        ttk.Button(self.header, text="Retour à l'accueil", command=lambda : controller.show_pages(Accueil)).place(relx=0.1, y=10, anchor='n')  
+        ttk.Button(self.header, text="Retour à l'accueil", command=lambda : self.controller.show_page(Accueil)).place(relx=0.1, y=10, anchor='n')  
         
         self.main_frame = tk.Frame(self, width=450, height=600)
         self.main_frame.place(y=0)
@@ -40,32 +40,29 @@ class Graphique2(tk.Frame):
         self.frame.lower()
 
     def creation_graph(self):
-        if self.figure:
-            # Si le graphique est affiché, on le supprime
-            if self.canvas_widget:
-                self.canvas_widget.destroy()
-            self.figure = False
-            self.toggle_button.configure(text="Afficher le graphique")
-        else:
-            # Si pas de graphique, on le crée
+        # Nettoyage de la figure actuelle
+        plt.clf()
 
+        # Création du nouveau graphique
+        if (self.srv.get()): self.supp = None
+        else: self.supp = "-1"
 
-            if (self.srv.get()): self.supp = None
-            else: self.supp="-1"
+        graph2(self.controller.x, col="SERVICE", supp=self.supp)
+        plt.gcf().set_size_inches(5, 4)
+        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.20)
+        plt.savefig("./graphiques/img/test")
 
-
-            plt.figure()
-            graph2(self.controller.x, col="SERVICE", supp=self.supp)
-            plt.gcf().set_size_inches(5, 4)
-            plt.tight_layout()
-            plt.subplots_adjust(bottom=0.20)
-            plt.savefig("./graphiques/img/test")
-            
-            # Créer et afficher le canvas
-            canvas = FigureCanvasTkAgg(plt.gcf(), self.frame)
-            canvas.draw()
-            self.canvas_widget = canvas.get_tk_widget()
+        # Gestion du canvas
+        if not hasattr(self, 'canvas'): # hasattr (has attribute), sert à vérifier si self, possède l'attribut canvas
+            # Première création
+            self.canvas = FigureCanvasTkAgg(plt.gcf(), self.frame)
+            self.canvas_widget = self.canvas.get_tk_widget()
             self.canvas_widget.pack(side="right")
-            
             self.figure = True
-            self.toggle_button.configure(text="Supprimer le graphique")
+        else:
+            # Mise à jour
+            self.canvas.figure = plt.gcf()
+            self.canvas.draw()
+
+        self.toggle_button.configure(text="Actualiser le graphique")
