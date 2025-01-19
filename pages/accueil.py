@@ -54,7 +54,7 @@ class Accueil(tk.Frame):
             for j in range(3):  # Colonnes
                 index = i * 3 + j
                 frame = ttk.Frame(self.contenu)
-                frame.grid(row=i, column=j, padx=25, pady=22, sticky="nsew")
+                frame.grid(row=i, column=j, padx=25, pady=10, sticky="nsew")
                 
                 page = self.graph[index]
                 
@@ -67,5 +67,6 @@ class Accueil(tk.Frame):
                     command=lambda p=page: controller.show_page(p)
                 )
                 btn.pack(expand=True)
-        self.export_pdf=ttk.Button(self.contenu, text="Télécharger le PDF", command=lambda: pdf(output_path="./pdf/test.pdf"))
-        self.export_pdf.place(x=100 ,y=450)
+        self.export_pdf = ttk.Button(self, text="Télécharger le PDF", command=lambda: pdf(output_path="./pdf/test.pdf"))
+        self.export_pdf.place(relx=0.45, y=550)
+        self.export_pdf.lift()

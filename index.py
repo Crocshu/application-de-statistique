@@ -34,7 +34,7 @@ class Index(tk.Tk):
         self.show_page(Accueil)
 
     def show_page(self, page_class):
-        print(f"Affichage de la page {page_class.__name__}")  # Debug print
+        print(f"Affichage de la page {page_class.__name__}")
         page = self.pages[page_class]
         page.tkraise()
 
