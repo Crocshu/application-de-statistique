@@ -41,7 +41,7 @@ def graph3(df:pd.DataFrame)->plt:
     ax.xaxis.set_minor_locator(mdates.MonthLocator())
     ax.xaxis.set_minor_formatter(FuncFormatter(custom_date_format))
     plt.show()
-def graph3v2(df:pd.DataFrame,title:str="Mouvement par mois des 4 principaux services",nbr:int=4,asupp:bool=False)->plt:
+def graph3v2(df:pd.DataFrame,nbr:int=4,asupp:bool=False)->plt:
     axe_x,axe_y,cherche="DATEMVT","SERVICE",'NBVMT'
     #Transforme le type de chaque élément de la colonne axe_y(DATEMVT) en str
     df[axe_y] = df[axe_y].astype(str)
@@ -58,7 +58,7 @@ def graph3v2(df:pd.DataFrame,title:str="Mouvement par mois des 4 principaux serv
     #Fait un tableau croisé, met en ligne les dates et en colonnes les services et renvoie comme valeur le nb de ligne où le service est mentionné sur ce mois
     donnee_graph=pd.pivot_table(data4, values=cherche, index=axe_x, columns=axe_y, aggfunc='count')
     donnee_graph.plot()
-    plt.title(title)
+    plt.title("Mouvement par mois des 4 principaux services")
     plt.tight_layout()
     if __name__=="__main__":plt.show()
 

@@ -18,7 +18,8 @@ class Graphique3(tk.Frame):
         self.header = ttk.Frame(self, style="Header.TFrame", height=50)
         self.header.place(x=0, y=0, relwidth=1)
 
-        ttk.Label(self.header, text="Mouvements par mois (4 principaux services)", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=10, anchor='n')  
+        self.titre_header = ttk.Label(self.header, text="Mouvements par mois (4 principaux services)", font=("Arial", 20), background=COLORS["primary"])
+        self.titre_header.place(relx=0.5, y=10, anchor='n')  
         ttk.Button(self.header, text="Retour à l'accueil", command=lambda : self.controller.show_page(Accueil)).place(relx=0.1, y=10, anchor='n')  
         
         self.main_frame = tk.Frame(self, width=450, height=600)
@@ -41,7 +42,6 @@ class Graphique3(tk.Frame):
 
         self.toggle_button = ttk.Button(self.main_frame, text="Afficher le graphique", command=self.creation_graph)
         self.toggle_button.place(x=30 ,y=550)
-        ttk.Button(self.main_frame, text="Télécharger le PDF", command=self.creation_graph, state=DISABLED).place(x=220 ,y=550)
 
         self.frame = tk.Frame(self)
         self.frame.place(relheight=1, y=0, x=450)
@@ -54,6 +54,7 @@ class Graphique3(tk.Frame):
         # Création du nouveau graphique
 
         graph3v2(self.controller.df,nbr=self.nb_services.get(),asupp=self.srv.get())
+        if self.nb_services.get() != 4 : plt.title(f"Mouvement par mois des {self.nb_services.get()} principaux services")
         if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()
@@ -73,5 +74,6 @@ class Graphique3(tk.Frame):
             self.canvas.draw()
         
         self.toggle_button.configure(text="Actualiser le graphique")
+        self.titre_header.configure(text=f"Mouvements par mois ({self.nb_services.get()} principaux services)")
 
         

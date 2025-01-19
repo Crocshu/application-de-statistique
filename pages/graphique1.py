@@ -43,7 +43,6 @@ class Graphique1(tk.Frame):
 
         self.toggle_button = ttk.Button(self.main_frame, text="Afficher le graphique", command=self.creation_graph)
         self.toggle_button.place(x=30 ,y=550)
-        ttk.Button(self.main_frame, text="Télécharger le PDF", command=self.creation_graph, state=DISABLED).place(x=220 ,y=550)
 
         self.frame = tk.Frame(self)
         self.frame.place(relheight=1, y=0, x=450)
