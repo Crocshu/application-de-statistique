@@ -28,7 +28,7 @@ class Graphique2(tk.Frame):
         ttk.Label(self.main_frame, text="Quelques options pour le graphiques", font=("Arial", 15)).place(anchor="nw", x=10, y=60)
 
         self.title = tk.StringVar()
-        ttk.Label(self.main_frame, text="Titre du graphique - Laisser vide pour titre par défaut", font=("Arial", 11)).place(anchor="nw", x=30, y=110)
+        ttk.Label(self.main_frame, text="Titre du graphique (laissez vide pour le titre par défaut).", font=("Arial", 11)).place(anchor="nw", x=30, y=110)
         ttk.Entry(self.main_frame, textvariable=self.title, width=38).place(anchor="nw", x=30, y=130)
 
         self.choixcouleur = tk.StringVar()
@@ -62,12 +62,12 @@ class Graphique2(tk.Frame):
         if (self.srv.get()): self.supp = None
         else: self.supp = "-1"
 
-        graph2v2(self.controller.x, supp=self.supp, nbr=nbr_srv,couleur=couleur_selec)
+        graph2v2(self.controller.df, supp=self.supp, nbr=nbr_srv,couleur=couleur_selec)
         if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.20)
-        plt.savefig("./graphiques/img/g2")
+        plt.savefig("./graphiques/img/g2.png")
 
         # Gestion du canvas
         if not hasattr(self, 'canvas'): # hasattr (has attribute), sert à vérifier si self, possède l'attribut canvas

@@ -28,7 +28,7 @@ class Graphique5(tk.Frame):
         ttk.Label(self.main_frame, text="Quelques options pour le graphiques", font=("Arial", 15)).place(anchor="nw", x=10, y=60)
 
         self.title = tk.StringVar()
-        ttk.Label(self.main_frame, text="Titre du graphique - Laisser vide pour titre par défaut", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
+        ttk.Label(self.main_frame, text="Titre du graphique (laissez vide pour le titre par défaut).", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
         ttk.Entry(self.main_frame, textvariable=self.title, width=38).place(anchor="nw", x=30, y=130)
 
         self.toggle_button = ttk.Button(self.main_frame, text="Afficher le graphique", command=self.creation_graph)
@@ -45,7 +45,7 @@ class Graphique5(tk.Frame):
 
         # Création du nouveau graphique
 
-        graph5v2(self.controller.x)
+        graph5v2(self.controller.df)
         if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()

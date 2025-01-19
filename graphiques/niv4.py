@@ -1,7 +1,6 @@
-from main import ouvrir_fichier as of
 import matplotlib.pyplot as plt
 
-def graph4(fichier: dict, index: str, asupp:str ,nbr: int = 10):    
+def graph4(fichier: dict, asupp:str = None, index: str="SERVICE", nbr: int = 10):    
     liser = {}
     for i in fichier[index]:
         if i != asupp:
@@ -17,14 +16,17 @@ def graph4(fichier: dict, index: str, asupp:str ,nbr: int = 10):
         l, s = i
         label = label + (l,)
         size.append(s)
+    print(label)
+    print(size)
 
     fig, ax = plt.subplots()
     ax.pie(x=size, labels=label, autopct='%1.2f%%') # Création d'un graphique Camembert  
     ax.set_title("Proportion de mouvements par service")
     plt.ylabel(index) # Ajout d'une étiquette sur l'axe Y
-    plt.show() 
+    # plt.show() 
 
 if __name__=="__main__":
+    from main import ouvrir_fichier as of
     fichier = of(ezip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";")
     graph4(fichier=fichier, index="SERVICE", asupp="-1")
 else:

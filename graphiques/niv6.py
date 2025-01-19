@@ -52,9 +52,9 @@ def graph6v2(df1:pd.DataFrame,df2:pd.DataFrame,exclusions:list=[],nprod:int=9,e_
     ax=dataf.plot()#Création du graphique
     ax.set_ylabel("Valeur Unitaire (en €)")  # Nom de l'index (l'axe des X)
     # Nom du graphique 'dynamique'
-    title=f'Suivi prix unitaire des {len(dataf.columns)} produit(s) avec le + de mouv' if len(e_p)==0 else 'Suivi du prix unitaire pour le(s) produit(s) demandé(s)'
+    title=f'Prix unitaire des {len(dataf.columns)} produits les plus actifs' if len(e_p)==0 else 'Prix unitaire pour le(s) produit(s) demandé(s)'
     plt.title(title)
-    plt.legend(loc='best')
+    plt.legend(fontsize=6 ,loc='best')
     plt.tight_layout()
     if __name__=="__main__":plt.show()
 if __name__=="__main__":

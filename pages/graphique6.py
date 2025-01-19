@@ -19,7 +19,7 @@ class Graphique6(tk.Frame):
         self.header = ttk.Frame(self, style="Header.TFrame", height=50)
         self.header.place(x=0, y=0, relwidth=1)
 
-        ttk.Label(self.header, text="Prix moyen", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=10, anchor='n')  
+        ttk.Label(self.header, text="Évolution du prix des 4 produits les plus vendus", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=10, anchor='n')  
         ttk.Button(self.header, text="Retour à l'accueil", command=lambda : self.controller.show_page(Accueil)).place(relx=0.1, y=10, anchor='n')  
         
         self.main_frame = tk.Frame(self, width=450, height=600)
@@ -29,15 +29,15 @@ class Graphique6(tk.Frame):
         ttk.Label(self.main_frame, text="Quelques options pour le graphiques", font=("Arial", 15)).place(anchor="nw", x=10, y=60)
 
         self.title = tk.StringVar()
-        ttk.Label(self.main_frame, text="Titre du graphique - Laisser vide pour titre par défaut", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
+        ttk.Label(self.main_frame, text="Titre du graphique (laissez vide pour le titre par défaut).", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
         ttk.Entry(self.main_frame, textvariable=self.title, width=38).place(anchor="nw", x=30, y=130)
 
         self.e_p = tk.StringVar()
-        ttk.Label(self.main_frame, text="Étude Précise, n° de produits à étudier ex : 1,2,3", font=("Arial", 10)).place(anchor="nw", x=30, y=180)
+        ttk.Label(self.main_frame, text="Étude Précise, n° de produits à étudier (ex : 1,2,3)", font=("Arial", 10)).place(anchor="nw", x=30, y=180)
         ttk.Entry(self.main_frame, textvariable=self.e_p, width=38).place(anchor="nw", x=30, y=200)
 
         self.exclu = tk.StringVar()
-        ttk.Label(self.main_frame, text="Exclusion, n° de produits à exclure ex : 1,2,3", font=("Arial", 10)).place(anchor="nw", x=30, y=250)
+        ttk.Label(self.main_frame, text="Exclusion, n° de produits à exclure (ex : 1,2,3)", font=("Arial", 10)).place(anchor="nw", x=30, y=250)
         ttk.Entry(self.main_frame, textvariable=self.exclu, width=38).place(anchor="nw", x=30, y=270)
 
         self.nprod = IntVar(value=9)
@@ -51,7 +51,7 @@ class Graphique6(tk.Frame):
         self.frame = tk.Frame(self)
         self.frame.place(relheight=1, y=0, x=450)
         self.frame.lower()
-        self.df2=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
+        self.df3=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
 
     def creation_graph(self):
         # Nettoyage de la figure actuelle
@@ -61,7 +61,7 @@ class Graphique6(tk.Frame):
         e_p=self.e_p.get().split(',') if self.e_p.get() != "" else []
         exclu=self.exclu.get().split(',') if self.exclu.get() != "" else []
 
-        graph6v2(self.controller.x,df2=self.df2,e_p=e_p,exclusions=exclu,nprod=self.nprod.get())
+        graph6v2(self.controller.df,df3=self.df3,e_p=e_p,exclusions=exclu,nprod=self.nprod.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.20)

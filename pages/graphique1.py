@@ -58,12 +58,12 @@ class Graphique1(tk.Frame):
         if self.annee.get() == "" : annee = None
         else : annee = self.annee.get()
 
-        graph1int(self.controller.x, years=annee ,color=self.choixcouleur.get())
+        graph1int(self.controller.df, years=annee ,color=self.choixcouleur.get())
         if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.25)
-        plt.savefig("./graphiques/img/g2")
+        plt.savefig("./graphiques/img/g1.png")
 
         # Gestion du canvas
         if not hasattr(self, 'canvas'): # hasattr (has attribute), sert à vérifier si self, possède l'attribut canvas
