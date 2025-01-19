@@ -12,9 +12,7 @@ def graph2(fichier: pd.DataFrame,col: str ,supp: str = None): # col est la colon
     fig = serviceF.plot(title="Nombre de mouvements par service", kind="bar", x=0, color="orange", legend=False).get_figure()
     fig.savefig("graphique_service.png")
 
-def graph2v2(fichier: pd.DataFrame,supp: str = None,nbr:int=15,couleur:str="orange",biblio:bool=False):
-    import matplotlib.colors as mcolors
-    couleur= mcolors.CSS4_COLORS[couleur] if not biblio else mcolors.XKCD_COLORS[f'xkcd:{couleur}']
+def graph2v2(fichier: pd.DataFrame,supp: str = None,nbr:int=15,couleur:str="orange"):
     # supp est une valeur à retirer, fichier et le fichier à analyser,nbr est le nombre de service à étudier,couleur est la couleur du graphique
     col,cherche="SERVICE","NBMVT"# col est la colones à analyser, cherche est le nom à donner à la colonne après le groupby
     fichier[col] = fichier[col].astype(str)# astype(str) : Convertit toutes les valeurs de la colonne en chaînes pour éviter les conflits de type.a fin des chaînes.

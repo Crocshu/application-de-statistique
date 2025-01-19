@@ -14,7 +14,7 @@ def graph1(df:dict)->plt:
     plt.tight_layout()
     plt.show()# Afficher le graphique
 
-def graph1v2(df:dict,years:str=None)->plt:
+def graph1v2(df:dict,years:str=None, color:str='orange')->plt:
     axe_x,axe_y,title="DATEMVT","VALHT",'Prix moyen des mouvements par mois' 
     ax,ay=[dt.datetime.strptime(x, '%d/%m/%Y') for x in df[axe_x]],[float(x.replace(",", ".")) for x in df[axe_y]]
     years=set(map(int, years.split(','))) if years else {date.year for date in ax}
@@ -24,11 +24,26 @@ def graph1v2(df:dict,years:str=None)->plt:
     moy_mois=[round(sum(valeurs)/len(valeurs),2) if valeurs else 0 for valeurs in mois.values()]
     mois_en_francais = {1: "Janvier", 2: "Février", 3: "Mars", 4: "Avril", 5: "Mai", 6: "Juin", 7: "Juillet", 8: "Août", 9: "septembre", 10: "octobre", 11: "novembre", 12: "décembre"}
     mois=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
-    plt.bar(mois, moy_mois,color='orange')# Faire graphique en barre avec mois en valeur abscisse et moy_mois en valeur ordonnée avec une couleur orange
+    plt.bar(mois, moy_mois,color=color)# Faire graphique en barre avec mois en valeur abscisse et moy_mois en valeur ordonnée avec une couleur orange
     plt.xticks(rotation=90)  # Rotation de 90 degrés pour rendre les valeurs en abscisses verticales
     plt.title(title)# Ajout du titre
     plt.tight_layout()
     plt.show()# Afficher le graphique
+
+def graph1int(df:dict,years:str=None, color:str='orange')->plt:
+    axe_x,axe_y,title="DATEMVT","VALHT",'Prix moyen des mouvements par mois' 
+    ax,ay=[dt.datetime.strptime(x, '%d/%m/%Y') for x in df[axe_x]],[float(x.replace(",", ".")) for x in df[axe_y]]
+    years=set(map(int, years.split(','))) if years else {date.year for date in ax}
+    mois={i: [] for i in range(1, 13)}
+    # Le replace est nécessaire, sinon la conversion en float est impossible car le séparateur d'un nombre réel pour python est le point et non la virgule
+    {mois[date.month].append(val) for date,val in zip(ax,ay) if date.year in years}
+    moy_mois=[round(sum(valeurs)/len(valeurs),2) if valeurs else 0 for valeurs in mois.values()]
+    mois_en_francais = {1: "Janvier", 2: "Février", 3: "Mars", 4: "Avril", 5: "Mai", 6: "Juin", 7: "Juillet", 8: "Août", 9: "septembre", 10: "octobre", 11: "novembre", 12: "décembre"}
+    mois=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
+    plt.bar(mois, moy_mois,color=color)# Faire graphique en barre avec mois en valeur abscisse et moy_mois en valeur ordonnée avec une couleur orange
+    plt.xticks(rotation=90)  # Rotation de 90 degrés pour rendre les valeurs en abscisses verticales
+    plt.title(title)# Ajout du titre
+    plt.tight_layout()
 
 if __name__=="__main__":
     from main import ouvrir_fichier as of

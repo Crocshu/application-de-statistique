@@ -13,16 +13,14 @@ class Accueil(tk.Frame):
         self.header = ttk.Frame(self, style="Header.TFrame", height=100)
         self.header.place(x=0, y=0, relwidth=1)
 
+        self.pack(fill="both", expand=True)
 
         ttk.Label(self.header, text="ARNAIZ Tristan", font=("Arial", 12), background=COLORS["primary"]).place(x=20, y=10)
         ttk.Label(self.header, text="LAMY Nathan", font=("Arial", 12), background=COLORS["primary"]).place(relx=1, y=10, x=-20, anchor='ne')
         ttk.Label(self.header, text="SAE 105 / Graphiques", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=30, anchor='n')
 
         self.contenu = ttk.Frame(self)
-        self.contenu.pack(expand=True, padx=10, pady=110, anchor="center") # padx & pady servent a ajouter des marges extérieures
-
-        title = ttk.Label(self.contenu, text="Nos types de graphiques", font=("Arial", 20))
-        title
+        self.contenu.pack(expand=True, fill="both", pady=110) # padx & pady servent a ajouter des marges extérieures
 
         self.illustrations = []
         for i in range(1, 7):
@@ -32,11 +30,11 @@ class Accueil(tk.Frame):
             self.illustrations.append(photo)
 
         self.nom_graph = ["Prix moyen", 
-                          "Nombre mouvement / Services", 
-                          "Mouvement par mois 4 principaux services", 
-                          "Proportion mouvement / Services",
-                          "Proportion de mouvements / mouvement et par jour",
-                          "Evolution du prix des 4 produites + vendus"]
+                          "Nombre de mouvements par service", 
+                          "Mouvements par mois (4 principaux services)", 
+                          "Proportion des mouvements par service",
+                          "Proportion des mouvements par jour",
+                          "Évolution du prix des 4 produits les plus vendus"]
         
         from pages.graphique1 import Graphique1
         from pages.graphique2 import Graphique2
@@ -56,7 +54,7 @@ class Accueil(tk.Frame):
             for j in range(3):  # Colonnes
                 index = i * 3 + j
                 frame = ttk.Frame(self.contenu)
-                frame.grid(row=i, column=j, padx=15, pady=10, sticky="nsew")
+                frame.grid(row=i, column=j, padx=25, pady=15, sticky="nsew")
                 
                 page = self.graph[index]
                 
