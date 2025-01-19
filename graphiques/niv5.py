@@ -89,5 +89,3 @@ if __name__=="__main__":
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
     #graph5(df=x,axe_x="TYPEMVT",axe_y="DATEMVT",niveau="pasnoob",cherche1='JourSemaine',title='Proportion de mouvements par type de mouvement et par jour de la semaine')
     graph5v2(df=x)
-else:
-    from graphiques.main import ouvrir_fichier as of

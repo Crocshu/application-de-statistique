@@ -23,12 +23,10 @@ def graph4(fichier: dict, asupp:str = None, index: str="SERVICE", nbr: int = 10)
     ax.pie(x=size, labels=label, autopct='%1.2f%%') # Création d'un graphique Camembert  
     ax.set_title("Proportion de mouvements par service")
     plt.ylabel(index) # Ajout d'une étiquette sur l'axe Y
-    # plt.show() 
+    if __name__=="__main__":plt.show() 
 
 if __name__=="__main__":
     from main import ouvrir_fichier as of
     fichier = of(ezip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";")
     graph4(fichier=fichier, index="SERVICE", asupp="-1")
-else:
-    from graphiques.main import ouvrir_fichier as of
 

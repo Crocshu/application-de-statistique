@@ -53,13 +53,14 @@ def create_pdfv2(output_path:str,img_path:str="./graphiques/img/"):
     Par défaut, il prend toutes les années contenues dans le fichier mais une option permet de choisir
     quelles années vous voulez utilisez.""",
     """Ce graphique représente le nombre de mouvements effectué par les 10 services les plus actifs du fichier.
-    Par défaut, ils sont 10 mais vous pouvez modifier ce nombre, rajouter un service qui n'est pas censé
-    apparaître et la couleur suivant ce qui vous paraît le plus approprié""",
+    Par défaut, ils sont 10 mais vous pouvez modifier ce nombre, rajouter le service -1 ou non et
+    mettre la couleur suivant ce qui vous paraît le plus approprié""",
     """Ce graphique représente le nombre de mouvement par mois des 4 principaux services pour toutes les
-    années du fichier. Par défaut, il n'y en a que 4 mais vous pouvez modifier ce nombre.""",
+    années du fichier. Par défaut, il n'y en a que 4 mais vous pouvez modifier ce nombre et rajouter ou non
+    le service -1.""",
     """Ce graphique représente la proportion de mouvement des principaux services du fichier. Il donne un
-    pourcentage de mouvement effectués par le service en fonction des services totaux, vous pouvez
-    modifier le nombre de service à afficher mais mettre plus de 15 est déconseillé""",
+    pourcentage de mouvement effectués par le service en fonction des mouvements totaux des services, vous pouvez
+    modifier le nombre de service à afficher mais mettre plus de 20 est déconseillé""",
     """Ce graphique représente la proportion des différents types de mouvement en fonction du jour de
     la semaine. Cela permet de donner un ordre d'idée des mouvements fait en fonction du jour de
     la semaine pour en ressortir une dynamique.""",

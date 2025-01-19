@@ -62,4 +62,4 @@ if __name__=="__main__":
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
     y=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
     #graph6(df1=x,df2=y)
-    graph6v2(df1=x,df2=y,e_p=['2187'])
+    graph6v2(df1=x,df2=y)#,e_p=['2187'])

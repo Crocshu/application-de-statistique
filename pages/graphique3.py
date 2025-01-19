@@ -31,6 +31,14 @@ class Graphique3(tk.Frame):
         ttk.Label(self.main_frame, text="Titre du graphique (laissez vide pour le titre par défaut).", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
         ttk.Entry(self.main_frame, textvariable=self.title, width=38).place(anchor="nw", x=30, y=130)
 
+        self.nb_services = tk.IntVar(value=4)
+        ttk.Label(self.main_frame, text="Sélectionnez le nombre de services", font=("Arial", 11)).place(anchor="nw", x=30, y=180)
+        ttk.Spinbox(self.main_frame, from_=1, to=20,  # Augmenté pour permettre la valeur 15
+                    textvariable=self.nb_services, width=5).place(anchor="nw", x=30, y=200)
+
+        self.srv = tk.BooleanVar()
+        tk.Checkbutton(self.main_frame, text="Ajouter service -1", variable=self.srv).place(anchor="nw", x=25, y=250)
+
         self.toggle_button = ttk.Button(self.main_frame, text="Afficher le graphique", command=self.creation_graph)
         self.toggle_button.place(x=30 ,y=550)
         ttk.Button(self.main_frame, text="Télécharger le PDF", command=self.creation_graph, state=DISABLED).place(x=220 ,y=550)
@@ -45,7 +53,7 @@ class Graphique3(tk.Frame):
 
         # Création du nouveau graphique
 
-        graph3int(self.controller.df)
+        graph3v2(self.controller.df,nbr=self.nb_services.get(),asupp=self.srv.get())
         if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()

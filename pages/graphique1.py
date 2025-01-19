@@ -58,7 +58,7 @@ class Graphique1(tk.Frame):
         if self.annee.get() == "" : annee = None
         else : annee = self.annee.get()
 
-        graph1int(self.controller.df, years=annee ,color=self.choixcouleur.get())
+        graph1v2(self.controller.df, years=annee ,color=self.choixcouleur.get())
         if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()

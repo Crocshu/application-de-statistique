@@ -19,7 +19,7 @@ class Graphique6(tk.Frame):
         self.header = ttk.Frame(self, style="Header.TFrame", height=50)
         self.header.place(x=0, y=0, relwidth=1)
 
-        ttk.Label(self.header, text="Évolution du prix des 4 produits les plus vendus", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=10, anchor='n')  
+        ttk.Label(self.header, text="Prix moyen", font=("Arial", 20), background=COLORS["primary"]).place(relx=0.5, y=10, anchor='n')  
         ttk.Button(self.header, text="Retour à l'accueil", command=lambda : self.controller.show_page(Accueil)).place(relx=0.1, y=10, anchor='n')  
         
         self.main_frame = tk.Frame(self, width=450, height=600)
@@ -29,7 +29,7 @@ class Graphique6(tk.Frame):
         ttk.Label(self.main_frame, text="Quelques options pour le graphiques", font=("Arial", 15)).place(anchor="nw", x=10, y=60)
 
         self.title = tk.StringVar()
-        ttk.Label(self.main_frame, text="Titre du graphique (laissez vide pour le titre par défaut).", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
+        ttk.Label(self.main_frame, text="Titre du graphique (Laissez vide pour le titre par défaut)", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
         ttk.Entry(self.main_frame, textvariable=self.title, width=38).place(anchor="nw", x=30, y=130)
 
         self.e_p = tk.StringVar()
@@ -42,7 +42,7 @@ class Graphique6(tk.Frame):
 
         self.nprod = IntVar(value=9)
         ttk.Label(self.main_frame, text="Nombre de produits affichés, si pas d'Étude Précise", font=("Arial", 10)).place(anchor="nw", x=30, y=320)
-        tk.Spinbox(self.main_frame, from_=1, to=30, textvariable=self.nprod).place(anchor="nw", x=30, y=340)
+        tk.Spinbox(self.main_frame, from_=1, to=30, textvariable=self.nprod,width=5).place(anchor="nw", x=30, y=340)
 
         self.toggle_button = ttk.Button(self.main_frame, text="Afficher le graphique", command=self.creation_graph)
         self.toggle_button.place(x=30 ,y=550)
