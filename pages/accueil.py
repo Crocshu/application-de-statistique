@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import *
+from graphiques.create_pdf import create_pdfv2 as pdf
 
 from config import COLORS, ecran
 
@@ -21,7 +22,6 @@ class Accueil(tk.Frame):
 
         self.contenu = ttk.Frame(self)
         self.contenu.pack(expand=True, fill="both", pady=110) # padx & pady servent a ajouter des marges extérieures
-
         self.illustrations = []
         for i in range(1, 7):
             img = f"./graphiques/img/graph{i}.png"
@@ -49,12 +49,12 @@ class Accueil(tk.Frame):
                       Graphique4,
                       Graphique5,
                       Graphique6]
-
+        
         for i in range(2):  # Lignes
             for j in range(3):  # Colonnes
                 index = i * 3 + j
                 frame = ttk.Frame(self.contenu)
-                frame.grid(row=i, column=j, padx=25, pady=15, sticky="nsew")
+                frame.grid(row=i, column=j, padx=25, pady=22, sticky="nsew")
                 
                 page = self.graph[index]
                 
@@ -67,4 +67,5 @@ class Accueil(tk.Frame):
                     command=lambda p=page: controller.show_page(p)
                 )
                 btn.pack(expand=True)
-
+        self.export_pdf=ttk.Button(self.contenu, text="Télécharger le PDF", command=lambda: pdf(output_path="./pdf/test.pdf"))
+        self.export_pdf.place(x=100 ,y=450)
