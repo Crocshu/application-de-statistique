@@ -48,7 +48,7 @@ def graph5(df:pd.DataFrame,axe_x:str,axe_y:str,niveau:str,cherche1:str,title:str
     plt.show()
 def graph5v2(df:pd.DataFrame):
     axe_x,axe_y,cherche1="TYPEMVT","DATEMVT",'JourSemaine'
-    title='Proportion de mouvements par type de mouvement et par jour'
+    title='Proportion de mouvements par jour'
     days={'Monday': 'Lundi','Tuesday': 'Mardi','Wednesday': 'Mercredi','Thursday': 'Jeudi','Friday': 'Vendredi','Saturday': 'Samedi','Sunday': 'Dimanche'}
     colors=["red","orange","greenyellow","khaki","palegreen","green"]
     dic_typemvt={1:"Livraison",3:"Facturation",4:"Retour",5:"Avoir",7:"Dispensation",8:"Régulation livraison",

@@ -22,7 +22,7 @@ class Index(tk.Tk):
         self.container.pack(fill="both", expand=True)
 
         self.df=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";",pandas=True)
-        self.df2=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";")
+        self.dfsp=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=1000000000,separator=";")
 
         self.pages = {}
 

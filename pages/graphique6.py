@@ -51,7 +51,7 @@ class Graphique6(tk.Frame):
         self.frame = tk.Frame(self)
         self.frame.place(relheight=1, y=0, x=450)
         self.frame.lower()
-        self.df3=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
+        self.df2=of(ezip=None,nfile="medocs_produits.csv",echantillon=10000000,separator=";",pandas=True)
 
     def creation_graph(self):
         # Nettoyage de la figure actuelle
@@ -61,11 +61,11 @@ class Graphique6(tk.Frame):
         e_p=self.e_p.get().split(',') if self.e_p.get() != "" else []
         exclu=self.exclu.get().split(',') if self.exclu.get() != "" else []
 
-        graph6v2(self.controller.df,df3=self.df3,e_p=e_p,exclusions=exclu,nprod=self.nprod.get())
+        graph6v2(self.controller.df,df2=self.df2,e_p=e_p,exclusions=exclu,nprod=self.nprod.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.20)
-        plt.savefig("./graphiques/img/test")
+        plt.savefig("./graphiques/img/g6.png")
 
         # Gestion du canvas
         if not hasattr(self, 'canvas'): # hasattr (has attribute), sert à vérifier si self, possède l'attribut canvas

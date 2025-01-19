@@ -57,7 +57,7 @@ class Graphique4(tk.Frame):
         if (self.srva.get()): self.asupp = None
         else: self.asupp = "-1"
 
-        graph4(fichier=self.controller.df2, index="SERVICE", asupp=self.asupp, nbr=nbr_srv)
+        graph4(fichier=self.controller.dfsp, index="SERVICE", asupp=self.asupp, nbr=nbr_srv)
         if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.savefig("./graphiques/img/g4.png")
