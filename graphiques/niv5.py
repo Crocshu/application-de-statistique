@@ -1,4 +1,3 @@
-from main import ouvrir_fichier as of
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
@@ -69,7 +68,7 @@ def graph5v2(df:pd.DataFrame):
     #Applique une division entre les valeurs de data6 et celles de total_mouvements_par_type divisé par 100 (pour les %) à chaque colonne, axis=0 pour itérer par colonne
     prc_presence = data6.div(total_mouvements_par_type/100, axis=0)
     #Définission du graphique avec un .plot
-    ax=prc_presence.plot(kind='barh', stacked=True, color=colors if len(colors)==len(prc_presence.index)-1 else None,figsize=(6.4,4.8))
+    ax=prc_presence.plot(kind='barh', stacked=True, color=colors if len(colors)==len(prc_presence.index)-1 else None)
     # Ajout des annotations pour chaque portion des barres
     for i, (index, row) in enumerate(prc_presence.iterrows()):
         cumulative_width = 0  # Largeur cumulative pour le stacking
@@ -84,7 +83,7 @@ def graph5v2(df:pd.DataFrame):
     plt.legend(loc='best')
     plt.title(title)
     plt.tight_layout()
-    plt.show()
+    if __name__=="__main__": plt.show()
 if __name__=="__main__":
     from main import ouvrir_fichier as of
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
