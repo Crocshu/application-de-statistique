@@ -62,12 +62,12 @@ def graph3v2(df:pd.DataFrame)->plt:
     plt.tight_layout()
     plt.show()
 
-def graph3int(df:pd.DataFrame, title="Mouvement par mois des 4 principaux services")->plt:
+def graph3int(df:pd.DataFrame, title:str="Mouvement par mois des 4 principaux services",nbr:int=4,asupp:bool=True)->plt:
     axe_x,axe_y,cherche="DATEMVT","SERVICE",'NBVMT'
     #Transforme le type de chaque élément de la colonne axe_y(DATEMVT) en str
     df[axe_y] = df[axe_y].astype(str)
     # Récupère les 4 premiers services avec le plus de mouvement sans -1.
-    top_serv=list(df[df[axe_y] != "-1"][axe_y].value_counts()[:4].index.values)
+    top_serv=list(df[df[axe_y] != "-1"][axe_y].value_counts()[:nbr].index.values) if asupp else list(df[axe_y].value_counts()[:nbr].index.values)
     #Récupère uniquement les lignes des top services
     data4=df[df[axe_y].isin(top_serv)]
     #Création d'une colonne cherche(NBMVT) qui a sur chaque ligne la valeur 0 pour que lors de la création de la pivot_table, il n'y ait pas d'erreur
@@ -78,7 +78,7 @@ def graph3int(df:pd.DataFrame, title="Mouvement par mois des 4 principaux servic
     data4[axe_y] = pd.Categorical(data4[axe_y], categories=top_serv, ordered=True)
     #Fait un tableau croisé, met en ligne les dates et en colonnes les services et renvoie comme valeur le nb de ligne où le service est mentionné sur ce mois
     donnee_graph=pd.pivot_table(data4, values=cherche, index=axe_x, columns=axe_y, aggfunc='count')
-    donnee_graph.plot(figsize=(6.4,4.8))
+    donnee_graph.plot()
     plt.title(title)
     plt.tight_layout()
 
