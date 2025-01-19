@@ -28,8 +28,11 @@ class Graphique2(tk.Frame):
         ttk.Label(self.main_frame, text="Quelques options pour le graphiques", font=("Arial", 15)).place(anchor="nw", x=10, y=60)
 
         self.srv = tk.BooleanVar()
-        tk.Checkbutton(self.main_frame, text="Ajouter service -1", variable=self.srv).place(anchor="nw", x=30, y=110)
+        tk.Checkbutton(self.main_frame, text="Ajouter service -1", variable=self.srv).place(anchor="nw", x=30, y=170)
 
+        self.title = tk.StringVar()
+        ttk.Label(self.main_frame, text="Titre du graphique - Laisser vide pour titre par défaut", font=("Arial", 10)).place(anchor="nw", x=30, y=110)
+        ttk.Entry(self.main_frame, textvariable=self.title, width=38).place(anchor="nw", x=30, y=130)
 
         self.toggle_button = ttk.Button(self.main_frame, text="Afficher le graphique", command=self.creation_graph)
         self.toggle_button.place(x=30 ,y=550)
@@ -48,6 +51,7 @@ class Graphique2(tk.Frame):
         else: self.supp = "-1"
 
         graph2(self.controller.x, col="SERVICE", supp=self.supp)
+        if self.title.get() != "" : plt.title(self.title.get())
         plt.gcf().set_size_inches(5, 4)
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.20)

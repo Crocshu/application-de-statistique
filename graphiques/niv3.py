@@ -61,6 +61,28 @@ def graph3v2(df:pd.DataFrame)->plt:
     plt.title(title)
     plt.tight_layout()
     plt.show()
+
+def graph3int(df:pd.DataFrame, title="Mouvement par mois des 4 principaux services")->plt:
+    axe_x,axe_y,cherche="DATEMVT","SERVICE",'NBVMT'
+    #Transforme le type de chaque élément de la colonne axe_y(DATEMVT) en str
+    df[axe_y] = df[axe_y].astype(str)
+    # Récupère les 4 premiers services avec le plus de mouvement sans -1.
+    top_serv=list(df[df[axe_y] != "-1"][axe_y].value_counts()[:4].index.values)
+    #Récupère uniquement les lignes des top services
+    data4=df[df[axe_y].isin(top_serv)]
+    #Création d'une colonne cherche(NBMVT) qui a sur chaque ligne la valeur 0 pour que lors de la création de la pivot_table, il n'y ait pas d'erreur
+    data4[cherche] = 0
+    #Reformatage de la date au premier de chaque mois : 15/05/2022 -> 2022-05-01
+    data4[axe_x] = pd.to_datetime(pd.to_datetime(data4[axe_x],dayfirst=True).dt.strftime('01/%m/%Y'),dayfirst=True)
+    #Création d'une catégorie pour pouvoir trier les ervices en fonction de leur nb de mvt total
+    data4[axe_y] = pd.Categorical(data4[axe_y], categories=top_serv, ordered=True)
+    #Fait un tableau croisé, met en ligne les dates et en colonnes les services et renvoie comme valeur le nb de ligne où le service est mentionné sur ce mois
+    donnee_graph=pd.pivot_table(data4, values=cherche, index=axe_x, columns=axe_y, aggfunc='count')
+    donnee_graph.plot(figsize=(6.4,4.8))
+    plt.title(title)
+    plt.tight_layout()
+
+
 if __name__=="__main__":
     from main import ouvrir_fichier as of
     x=of(ezip="medocs_mouvements.zip",nfile="mvtpdt.csv",echantillon=10000000,separator=";",pandas=True)
