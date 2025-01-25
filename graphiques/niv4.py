@@ -19,7 +19,7 @@ def graph4(fichier: dict, asupp:str = None, index: str="SERVICE", nbr: int = 10)
     print(label)
     print(size)
 
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots() # On récupère <AxesSubplot:>, qui repressente une zone de dessins matplotlib
     ax.pie(x=size, labels=label, autopct='%1.2f%%') # Création d'un graphique Camembert  
     ax.set_title("Proportion de mouvements par service")
     plt.ylabel(index) # Ajout d'une étiquette sur l'axe Y

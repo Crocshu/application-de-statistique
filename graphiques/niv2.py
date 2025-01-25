@@ -24,5 +24,5 @@ def graph2v2(fichier: pd.DataFrame,supp: str = None,nbr:int=15,couleur:str="oran
 if __name__=="__main__":
     from main import ouvrir_fichier as of
     fichier = of(ezip="medocs_mouvements.zip", nfile="mvtpdt.csv", echantillon=1000000000, separator=";", pandas=True)
-    graph2(fichier=fichier, col="SERVICE", supp="-1")
+    # graph2(fichier=fichier, col="SERVICE", supp="-1")
     graph2v2(fichier=fichier,supp="-1",nbr=20,couleur='plum')
