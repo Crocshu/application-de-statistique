@@ -42,4 +42,7 @@ Ce projet contient plusieurs dossiers :
 
 Pour ouvrir l'interface graphique, il faut entrer la commande suivante dans l'invite de commande
 
-> python3 index.py
+```bash
+python3 index.py
+```
+
